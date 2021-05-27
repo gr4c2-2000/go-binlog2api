@@ -1,0 +1,61 @@
+binlogFilename: mysql-bin.000001
+binlogPos: 4
+dbAddress: 127.0.0.1
+dbPort: 3306
+flushPossitionCache : true
+dbUser: user
+dbPassword: password
+dbFlavor: mysql
+dsn: "amqp://rabbitmq:rabbitmq@127.0.0.1:6572/"
+reconnect_delay: 5s
+exchanges:
+  - name: "insert"
+    type: "direct"
+    options:
+      durable: true
+  - name: "update"
+    type: "direct"
+    options:
+      durable: true
+  - name: "delete"
+    type: "direct"
+    options:
+      durable: true
+queues:
+  - name: "insert_queue"
+    exchange: "insert"
+    routing_key: "key-01"
+    options:
+      durable: true
+  - name: "update_queue"
+    exchange: "update"
+    routing_key: "key-02"
+    options:
+      durable: true
+  - name: "delete_queue"
+    exchange: "delete"
+    routing_key: "key-03"
+    options:
+      durable: true
+producers:
+  - name: "update_queue_producer"
+    exchange: "update"
+    routing_key: "key-02"
+    sync: true
+    options:
+      content_type: "application/json"
+      delivery_mode: 2
+  - name: "delete_queue_producer"
+    exchange: "delete"
+    routing_key: "key-03"
+    sync: true
+    options:
+      content_type: "application/json"
+      delivery_mode: 2
+  - name: "insert_queue_producer"
+    exchange: "insert"
+    routing_key: "key-01"
+    sync: true
+    options:
+      content_type: "application/json"
+      delivery_mode: 2      

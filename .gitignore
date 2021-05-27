@@ -1,0 +1,9 @@
+*.DS_Store
+.idea/
+configs/*
+!configs/config.yaml.example
+!configs/distribution_config.yaml.example
+logs/*
+cmd/go-binlog2api/go-binlog2api
+.DS_Store
+

@@ -1,0 +1,33 @@
+Recivers:
+  - Db: Test
+    Table: User
+    #if set only event with change value of a fields will be send
+    OnField:
+      - field1 
+      - field2
+    ReciverAPI:
+      InsertMethod: POST
+      UpdateMethod: PUT
+      DeleteMethod: DELETE
+      InsertURL: http://localhost/test1
+      UpdateURL: http://localhost/test1
+      DeleteURL: http://localhost/test1
+      Critical: false
+      Format: STD
+  - Db: Test
+    Table: User
+    ReciverMQ:
+      InsertQueueProducer: insert_queue_producer 
+      UpdateQueueProducer: update_queue_producer
+      DeleteQueueProducer: delete_queue_producer
+      Critical: false
+      Format: RAW
+    ReciverAPI:
+      InsertMethod: POST
+      UpdateMethod: PUT
+      DeleteMethod: DELETE
+      InsertURL: http://localhost/test2
+      UpdateURL: http://localhost/test2
+      DeleteURL: http://localhost/test2
+      Critical: false
+      Format: STD
